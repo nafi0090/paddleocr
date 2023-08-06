@@ -1,0 +1,7 @@
+Kemajuan :
+	1. Sudah bisa convert dan tidak ada masalah dengan template gambar 3 baris pada bank BNI
+
+
+Kekurangan :
+	1. Belum bisa digunakan dengan citra gambar yang lain, hanya bisa memakai image.png dengan template crop.png(BNI-lane_3-crop.png)
+	2. Menggunakan code yang sama tetapi ada beberapa kekurangan yaitu citra gambar langsung ke convert to binary image dengan bantuan openCV sehingga OCR tidak bekerja secara maksimal
