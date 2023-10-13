@@ -67,5 +67,47 @@ def run_app():
                 image_rgb = image_rgb[y1:, x1:]
                 table_df = perform_ocr(image_rgb)
                 st.table(table_df)
+        
+        elif height == 1600 and width == 738:
+            result = cv.matchTemplate(image_gray, tp.binary_template_3, cv.TM_CCOEFF_NORMED)
+            loc = np.where(result >= threshold)
+            boxes = np.column_stack((loc[1], loc[0], loc[1] + tp.template_gray_3.shape[1], loc[0] + tp.template_gray_3.shape[0]))
+            selected_boxes = non_max_suppression(boxes, result[loc], threshold_nms)
+    
+            if len(selected_boxes) == 0:
+                st.write("Gambar tidak sesuai dengan Templata")
+            else:
+                x1, y1, x2, y2 = selected_boxes[0]
+                image_rgb = image_rgb[y1:, x1:]
+                table_df = perform_ocr(image_rgb)
+                st.table(table_df)
+        
+        elif height == 1600 and width == 900:
+            result = cv.matchTemplate(image_gray, tp.binary_template_4, cv.TM_CCOEFF_NORMED)
+            loc = np.where(result >= threshold)
+            boxes = np.column_stack((loc[1], loc[0], loc[1] + tp.template_gray_4.shape[1], loc[0] + tp.template_gray_4.shape[0]))
+            selected_boxes = non_max_suppression(boxes, result[loc], threshold_nms)
+    
+            if len(selected_boxes) == 0:
+                st.write("Gambar tidak sesuai dengan Templata")
+            else:
+                x1, y1, x2, y2 = selected_boxes[0]
+                image_rgb = image_rgb[y1:, x1:]
+                table_df = perform_ocr(image_rgb)
+                st.table(table_df)
+        
+        elif height == 1280 and width == 606:
+            result = cv.matchTemplate(image_gray, tp.binary_template_5, cv.TM_CCOEFF_NORMED)
+            loc = np.where(result >= threshold)
+            boxes = np.column_stack((loc[1], loc[0], loc[1] + tp.template_gray_5.shape[1], loc[0] + tp.template_gray_5.shape[0]))
+            selected_boxes = non_max_suppression(boxes, result[loc], threshold_nms)
+    
+            if len(selected_boxes) == 0:
+                st.write("Gambar tidak sesuai dengan Templata")
+            else:
+                x1, y1, x2, y2 = selected_boxes[0]
+                image_rgb = image_rgb[y1:, x1:]
+                table_df = perform_ocr(image_rgb)
+                st.table(table_df)
 
         print(table_df)

@@ -17,7 +17,7 @@ def is_time(txt):
     return False
 
 def is_number(txt):
-    pattern = r'^[1-9]\d*(?:[.,]\d{3})*(?:[.,]\d{2})?$'
+    pattern = r'^[1-9]\d{0,2}(?:[.,]\d{3})*(?:[.,]\d{2})?$'
     if re.match(pattern, txt):
         return True
     return False
