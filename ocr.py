@@ -4,7 +4,7 @@ import numpy as np
 # You can set the parameter `lang` as `ch`, `en`, `fr`, `german`, `korean`, `japan`
 # to switch the language model in order.
 ocr = PaddleOCR(use_angle_cls=True, lang='en') # need to run only once to download and load model into memory
-img_path = 'image\hasil POI (Point Of Interest).jpg'
+img_path = 'WhatsApp Image 2023-10-09 at 08.08.43_e14a5662.jpg'
 result = ocr.ocr(img_path, cls=True)
 for idx in range(len(result)):
     res = result[idx]

@@ -24,17 +24,17 @@ def is_number(txt):
         return True
     return False
 
-# def is_number_credit(txt):
-#     pattern = r"\d{4}\s\d{4}\s\d{4}\s\d{3}"
-#     matches = re.findall(pattern, txt)
-#     if matches:
-#         return True
-#     return False
+def is_credit_card_number(txt):
+    pattern = r"\d{4}\s\d{4}\s\d{4}\s\d{3}"
+    credit_card_number = re.findall(pattern, txt)
+    if credit_card_number:
+        return True
+    return False
 
-def perform_ocr(image_rgb):
+def perform_ocr(image_rgb_crop):
     ocr = PaddleOCR(use_angle_cls=True, lang='en', show_log=False)
 
-    array = ocr.ocr(image_rgb, cls=True)[0]
+    array = ocr.ocr(image_rgb_crop, cls=True)[0]
     array = [line[1][0] for line in array]
     data = []
     start = 0
@@ -51,6 +51,7 @@ def perform_ocr(image_rgb):
         arr_date=[]
         arr_time=[]
         arr_cash=[]
+        arr_credit_card=[]
 
         for i, data_i in enumerate(data):
 
@@ -58,11 +59,14 @@ def perform_ocr(image_rgb):
             array_date = []
             array_word = []
             array_nominal = []
+            array_credit_card = []
 
             for data_j in data_i:
                 print(data_j)
                 if is_number(data_j):
                     array_nominal.append(data_j)
+                elif is_credit_card_number(data_j):
+                    array_credit_card.append(data_j)
                 elif is_time(data_j):
                     array_time.append(data_j)
                 elif is_date(data_j):
@@ -75,11 +79,12 @@ def perform_ocr(image_rgb):
                 word_index = word.index("Rentang Waktu")
                 word = word[word_index:]
                 word = word.replace("Rentang Waktu", "")
-
+            
             arr_desc.append(word)
-            arr_date.append(array_date[0] if len(array_date) > 0 else "Data Tidak Terdeteksi")
+            arr_date.append(array_date[0] if len(array_date) > 0 else arr_date[-1])
             arr_time.append(array_time[0] if len(array_time) > 0 else "Data Tidak Terdeteksi")
             arr_cash.append(array_nominal[0] if len(array_nominal) > 0 else "Data Tidak Terdeteksi")
+            arr_credit_card.append(array_credit_card[0] if len(array_credit_card) > 0 else "Data Tidak Terdeteksi")
 
     table = {
         'Keterangan': arr_desc,

@@ -6,15 +6,16 @@ from Fix.function_bni.print import print
 from Fix.function_bni.ocr import perform_ocr
 from Fix.function_bni.nms import non_max_suppression
 
+# POI (Point Of Interest)
 def crop_image(image, start_x, start_y, end_x, end_y):
     # Memotong citra berdasarkan koordinat yang diberikan
     cropped_image = image[start_y:end_y, start_x:end_x]
     return cropped_image
 
 def run_app():
-    st.title("BNI App")
+    st.title("BNI Project")
     # Mengunggah citra dan template
-    uploaded_image = st.file_uploader("Unggah citra", type=["jpg", "jpeg", "png"])
+    uploaded_image = st.file_uploader("Upload Image", type=["jpg", "jpeg", "png"])
 
     threshold = 0.1
     threshold_luminosity = 128
@@ -68,7 +69,7 @@ def run_app():
                 table_df = perform_ocr(image_rgb)
                 st.table(table_df)
         
-        elif height == 1600 and width == 738:
+        elif height == 1600 and 740 >= width >= 738:
             result = cv.matchTemplate(image_gray, tp.binary_template_3, cv.TM_CCOEFF_NORMED)
             loc = np.where(result >= threshold)
             boxes = np.column_stack((loc[1], loc[0], loc[1] + tp.template_gray_3.shape[1], loc[0] + tp.template_gray_3.shape[0]))
@@ -109,5 +110,8 @@ def run_app():
                 image_rgb = image_rgb[y1:, x1:]
                 table_df = perform_ocr(image_rgb)
                 st.table(table_df)
+
+        else:
+            st.write("Resolusi tidak ditemukan")
 
         print(table_df)
