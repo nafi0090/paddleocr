@@ -17,7 +17,7 @@ def run_app():
     # Mengunggah citra dan template
     uploaded_image = st.file_uploader("Upload Image", type=["jpg", "jpeg", "png"])
 
-    threshold = 0.1
+    threshold = 0.8
     threshold_luminosity = 128
     threshold_nms = 0.8
 
@@ -48,7 +48,7 @@ def run_app():
             selected_boxes = non_max_suppression(boxes, result[loc], threshold_nms)
     
             if len(selected_boxes) == 0:
-                st.write("Gambar tidak sesuai dengan Templat")
+                st.write("Gambar bukan mutasi M-banking BNI")
             else:
                 x1, y1, x2, y2 = selected_boxes[0]
                 image_rgb = image_rgb[y1:, x1:]
@@ -62,7 +62,7 @@ def run_app():
             selected_boxes = non_max_suppression(boxes, result[loc], threshold_nms)
     
             if len(selected_boxes) == 0:
-                st.write("Gambar tidak sesuai dengan Templata")
+                st.write("Gambar bukan mutasi M-banking BNI")
             else:
                 x1, y1, x2, y2 = selected_boxes[0]
                 image_rgb = image_rgb[y1:, x1:]
@@ -76,7 +76,7 @@ def run_app():
             selected_boxes = non_max_suppression(boxes, result[loc], threshold_nms)
     
             if len(selected_boxes) == 0:
-                st.write("Gambar tidak sesuai dengan Templata")
+                st.write("Gambar bukan mutasi M-banking BNI")
             else:
                 x1, y1, x2, y2 = selected_boxes[0]
                 image_rgb = image_rgb[y1:, x1:]
@@ -90,7 +90,7 @@ def run_app():
             selected_boxes = non_max_suppression(boxes, result[loc], threshold_nms)
     
             if len(selected_boxes) == 0:
-                st.write("Gambar tidak sesuai dengan Templata")
+                st.write("Gambar bukan mutasi M-banking BNI")
             else:
                 x1, y1, x2, y2 = selected_boxes[0]
                 image_rgb = image_rgb[y1:, x1:]
@@ -104,7 +104,7 @@ def run_app():
             selected_boxes = non_max_suppression(boxes, result[loc], threshold_nms)
     
             if len(selected_boxes) == 0:
-                st.write("Gambar tidak sesuai dengan Templata")
+                st.write("Gambar bukan mutasi M-banking BNI")
             else:
                 x1, y1, x2, y2 = selected_boxes[0]
                 image_rgb = image_rgb[y1:, x1:]
@@ -112,6 +112,6 @@ def run_app():
                 st.table(table_df)
 
         else:
-            st.write("Resolusi tidak ditemukan")
+            st.write("Gambar bukan mutasi M-banking BNI")
 
         print(table_df)

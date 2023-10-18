@@ -17,7 +17,7 @@ def run_app():
     # Mengunggah citra dan template
     uploaded_image = st.file_uploader("Upload Image", type=["jpg", "jpeg", "png"])
 
-    threshold = 0.1
+    threshold = 0.8
     threshold_luminosity = 128
     threshold_nms = 0.8
 
@@ -48,7 +48,21 @@ def run_app():
             selected_boxes = non_max_suppression(boxes, result[loc], threshold_nms)
     
             if len(selected_boxes) == 0:
-                st.write("Gambar tidak sesuai dengan Templat")
+                st.write("Gambar tidak sesuai dengan bank")
+            else:
+                x1, y1, x2, y2 = selected_boxes[0]
+                image_rgb_crop = image_rgb[y1:, x1:]
+                table_df = perform_ocr(image_rgb_crop)
+                st.table(table_df)
+
+        elif height == 1480 and width == 720 :
+            result = cv.matchTemplate(image_gray, tp.binary_template_2, cv.TM_CCOEFF_NORMED)
+            loc = np.where(result >= threshold)
+            boxes = np.column_stack((loc[1], loc[0], loc[1] + tp.template_gray_2.shape[1], loc[0] + tp.template_gray_2.shape[0]))
+            selected_boxes = non_max_suppression(boxes, result[loc], threshold_nms)
+    
+            if len(selected_boxes) == 0:
+                st.write("Gambar tidak sesuai dengan bank")
             else:
                 x1, y1, x2, y2 = selected_boxes[0]
                 image_rgb_crop = image_rgb[y1:, x1:]
@@ -56,9 +70,8 @@ def run_app():
                 st.table(table_df)
 
         else:
-            st.write("Resolusi tidak ditemukan")
+            st.write("Gambar tidak dapat terdeteksi")
 
-        st.image(image_rgb_crop)
         print(table_df)
 
 
