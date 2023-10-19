@@ -112,6 +112,9 @@ def run_app():
                 st.table(table_df)
 
         else:
-            st.write("Gambar bukan mutasi M-banking BNI")
+            st.write("Resolusi tidak terdeteksi dengan template")
 
-        print(table_df)
+        if table_df is not None and not table_df.empty:
+            print(table_df)
+        else :
+            return False

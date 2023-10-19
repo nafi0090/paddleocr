@@ -48,7 +48,7 @@ def run_app():
             selected_boxes = non_max_suppression(boxes, result[loc], threshold_nms)
     
             if len(selected_boxes) == 0:
-                st.write("Gambar tidak sesuai dengan bank")
+                st.write("Gambar bukan mutasi M-banking BRI")
             else:
                 x1, y1, x2, y2 = selected_boxes[0]
                 image_rgb_crop = image_rgb[y1:, x1:]
@@ -62,7 +62,7 @@ def run_app():
             selected_boxes = non_max_suppression(boxes, result[loc], threshold_nms)
     
             if len(selected_boxes) == 0:
-                st.write("Gambar tidak sesuai dengan bank")
+                st.write("Gambar bukan mutasi M-banking BRI")
             else:
                 x1, y1, x2, y2 = selected_boxes[0]
                 image_rgb_crop = image_rgb[y1:, x1:]
@@ -70,9 +70,12 @@ def run_app():
                 st.table(table_df)
 
         else:
-            st.write("Gambar tidak dapat terdeteksi")
+            st.write("Resolusi tidak terdeteksi dengan template")
 
-        print(table_df)
+        if table_df is not None and not table_df.empty:
+            print(table_df)
+        else :
+            return False
 
 
 
