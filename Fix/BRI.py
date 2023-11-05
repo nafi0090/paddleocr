@@ -43,15 +43,21 @@ def run_app():
     
         if height == 1600 and width == 720:
             result = cv.matchTemplate(image_gray, tp.binary_template_1, cv.TM_CCOEFF_NORMED)
+            # st.image(tp.binary_template_1)
+            # st.write(result)
             loc = np.where(result >= threshold)
             boxes = np.column_stack((loc[1], loc[0], loc[1] + tp.template_gray_1.shape[1], loc[0] + tp.template_gray_1.shape[0]))
             selected_boxes = non_max_suppression(boxes, result[loc], threshold_nms)
+            # for box in selected_boxes:
+            #     cv.rectangle(image_gray, (box[0], box[1]), (box[2], box[3]), (0, 255, 0), 2)
+            # st.image(image_gray)
     
             if len(selected_boxes) == 0:
                 st.write("Gambar bukan mutasi M-banking BRI")
             else:
                 x1, y1, x2, y2 = selected_boxes[0]
                 image_rgb_crop = image_rgb[y1:, x1:]
+                # st.image(image_rgb_crop)
                 table_df = perform_ocr(image_rgb_crop)
                 st.table(table_df)
 
@@ -66,6 +72,7 @@ def run_app():
             else:
                 x1, y1, x2, y2 = selected_boxes[0]
                 image_rgb_crop = image_rgb[y1:, x1:]
+                # st.image(image_rgb_crop)
                 table_df = perform_ocr(image_rgb_crop)
                 st.table(table_df)
 

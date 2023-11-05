@@ -15,7 +15,7 @@ def print(table_df):
     st.download_button(
         label="Unduh Data dalam Format Excel",
         data=excel_buffer,
-        file_name='data BRI.xlsx',  # Nama file yang akan diunduh
+        file_name='data BTN.xlsx',  # Nama file yang akan diunduh
         key='excel-download'
     )
 

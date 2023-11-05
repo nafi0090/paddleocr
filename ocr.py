@@ -4,7 +4,7 @@ import numpy as np
 # You can set the parameter `lang` as `ch`, `en`, `fr`, `german`, `korean`, `japan`
 # to switch the language model in order.
 ocr = PaddleOCR(use_angle_cls=True, lang='en') # need to run only once to download and load model into memory
-img_path = '8021600dc264ae5141b696803e87c220e906b39f73c45acdcf7fe887.jpg'
+img_path = 'setelah_threshold.png'
 result = ocr.ocr(img_path, cls=True)
 for idx in range(len(result)):
     res = result[idx]
