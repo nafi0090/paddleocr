@@ -86,4 +86,10 @@ def perform_ocr(image_rgb):
 
     table = pd.DataFrame(table)
 
+    # # Menambahkan penanganan nilai non-numerik di kolom 'Nominal'
+    # table['Nominal'] = table['Nominal'].apply(lambda x: 0 if x == 'Data Tidak Terdeteksi' else float(x.replace(',', '')))
+
+    # # Menjumlahkan kolom 'Nominal'
+    # total_nominal = table['Nominal'].sum()
+
     return table
